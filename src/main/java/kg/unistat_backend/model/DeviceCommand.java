@@ -10,7 +10,11 @@ public class DeviceCommand {
     public DeviceCommand() {
     }
 
+    /* constructor for relay commands, i added simple check so light groups quantity can not exceed available 4 relay groups */
     public DeviceCommand(Boolean ventilation, Boolean sockets, Integer lightGroups, Boolean manualOverride) {
+        if (lightGroups != null && (lightGroups < 0 || lightGroups > 4)) {
+            throw new IllegalArgumentException("Light groups can not be less than 0 or more than 4");
+        }
         this.ventilation = ventilation;
         this.sockets = sockets;
         this.lightGroups = lightGroups;
@@ -18,7 +22,7 @@ public class DeviceCommand {
     }
 
     public Boolean getVentilation() {
-        return ventilation;
+        return this.ventilation;
     }
 
     public void setVentilation(Boolean ventilation) {
@@ -26,7 +30,7 @@ public class DeviceCommand {
     }
 
     public Boolean getSockets() {
-        return sockets;
+        return this.sockets;
     }
 
     public void setSockets(Boolean sockets) {
@@ -34,15 +38,18 @@ public class DeviceCommand {
     }
 
     public Integer getLightGroups() {
-        return lightGroups;
+        return this.lightGroups;
     }
 
     public void setLightGroups(Integer lightGroups) {
+        if (lightGroups != null && (lightGroups < 0 || lightGroups > 4)) {
+            throw new IllegalArgumentException("Light groups quantity is not valid");
+        }
         this.lightGroups = lightGroups;
     }
 
     public Boolean getManualOverride() {
-        return manualOverride;
+        return this.manualOverride;
     }
 
     public void setManualOverride(Boolean manualOverride) {

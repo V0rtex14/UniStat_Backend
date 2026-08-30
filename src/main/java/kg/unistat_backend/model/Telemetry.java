@@ -14,7 +14,27 @@ public class Telemetry {
         this.ts = System.currentTimeMillis();
     }
 
+    /* constructor that creates telemetry object, i added some validation checks if incoming sensor data isn't correct */
     public Telemetry(double temp, double humidity, int co2, int pm25, int lux, double powerKw) {
+        if (temp < -50.0 || temp > 80.0) {
+            throw new IllegalArgumentException("Temperature value can not be out of valid range");
+        }
+        if (humidity < 0.0 || humidity > 100.0) {
+            throw new IllegalArgumentException("Humidity can not be less than zero or more than 100 percent");
+        }
+        if (co2 < 0 || co2 > 10000) {
+            throw new IllegalArgumentException("CO2 value can not be negative or unreasonably high");
+        }
+        if (pm25 < 0) {
+            throw new IllegalArgumentException("PM2.5 value can not be less than zero");
+        }
+        if (lux < 0) {
+            throw new IllegalArgumentException("Lux value can not be negative");
+        }
+        if (powerKw < 0.0) {
+            throw new IllegalArgumentException("Power consumption can not be negative");
+        }
+
         this.temp = temp;
         this.humidity = humidity;
         this.co2 = co2;
@@ -25,55 +45,73 @@ public class Telemetry {
     }
 
     public double getTemp() {
-        return temp;
+        return this.temp;
     }
 
     public void setTemp(double temp) {
+        if (temp < -50.0 || temp > 80.0) {
+            throw new IllegalArgumentException("Temperature out of range");
+        }
         this.temp = temp;
     }
 
     public double getHumidity() {
-        return humidity;
+        return this.humidity;
     }
 
     public void setHumidity(double humidity) {
+        if (humidity < 0.0 || humidity > 100.0) {
+            throw new IllegalArgumentException("Humidity out of range");
+        }
         this.humidity = humidity;
     }
 
     public int getCo2() {
-        return co2;
+        return this.co2;
     }
 
     public void setCo2(int co2) {
+        if (co2 < 0 || co2 > 10000) {
+            throw new IllegalArgumentException("CO2 out of range");
+        }
         this.co2 = co2;
     }
 
     public int getPm25() {
-        return pm25;
+        return this.pm25;
     }
 
     public void setPm25(int pm25) {
+        if (pm25 < 0) {
+            throw new IllegalArgumentException("PM2.5 can not be negative");
+        }
         this.pm25 = pm25;
     }
 
     public int getLux() {
-        return lux;
+        return this.lux;
     }
 
     public void setLux(int lux) {
+        if (lux < 0) {
+            throw new IllegalArgumentException("Lux can not be negative");
+        }
         this.lux = lux;
     }
 
     public double getPowerKw() {
-        return powerKw;
+        return this.powerKw;
     }
 
     public void setPowerKw(double powerKw) {
+        if (powerKw < 0.0) {
+            throw new IllegalArgumentException("Power can not be negative");
+        }
         this.powerKw = powerKw;
     }
 
     public long getTs() {
-        return ts;
+        return this.ts;
     }
 
     public void setTs(long ts) {
